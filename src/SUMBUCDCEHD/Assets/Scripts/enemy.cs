@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour {
 
-	private Rigidbody2D rb;
+	private Rigidbody2D rigidBody;
 	public float speed;
 
 	// Use this for initialization
 	void Start () {
-		rb = GetComponent<Rigidbody2D> ();
+		rigidBody = GetComponent<Rigidbody2D> ();
 		float xForce = Random.Range (-1f, 1f) * speed;
 		float yForce = Random.Range (-1f, 1f) * speed;
 		Vector2 initialForce = new Vector2 (xForce, yForce);
-		rb.AddForce(initialForce);
+		rigidBody.AddForce(initialForce);
 		
 	}
 	
