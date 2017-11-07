@@ -25,30 +25,13 @@ public class PlayerMovement : MonoBehaviour
 	// Called once per frame
 	private void Update()
 	{
-		if (Input.GetKey(KeyCode.A))
-		{
-			// Move the player left and update sprite orientation
-			m_RigidBody.AddForce(-m_Force);
-			m_SpriteRenderer.flipX = true;
-		}
-		else if (Input.GetKey(KeyCode.D))
-		{
-			// Move the player right and update sprite orientation
-			m_RigidBody.AddForce(m_Force);
-			m_SpriteRenderer.flipX = false;
-		}
+		//...
 	}
 
 	// Called when the player's collider overlaps c's collider
 	private void OnCollisionEnter2D(Collision2D c)
 	{
-		// If the other object isn't an enemy, do nothing!
-		if (c.gameObject.GetComponent<Enemy>() == null) return;
-
-		// If it is, the player lost!
-		Debug.Log("You died!");
-		ResetPlayer();
-		GameManager.Instance.ResetGame();
+		//...
 	}
 
 	// Return the player to its initial state

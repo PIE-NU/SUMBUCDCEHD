@@ -47,28 +47,12 @@ public class GameManager : MonoBehaviour
 	// Called once per frame
 	private void Update()
 	{
-		/*
-		 * Increment time since last enemy by the time that has elapsed since
-		 * the last frame.
-		 */
-		m_TimeSinceLastEnemy += Time.deltaTime;
-
-		// If the time since the last enemy is less than the spawn interval, do nothing.
-		if (m_TimeSinceLastEnemy <= m_AddEnemyTime) return;
-
-		// Otherwise, add an enemy and reset the timer!
-		m_TimeSinceLastEnemy = 0;
-		AddEnemy();
+		//...
 	}
 
 	// Adds an enemy to the game
 	private void AddEnemy()
 	{
-		// If we already have the maximum number of enemies, do nothing.
-		if (m_CurrentEnemies >= MaxEnemies) return;
-
-		// Otherwise, add an enemy to the game.
-		Instantiate(m_EnemyPrefab, new Vector3(0, 2, 0), Quaternion.identity);
-		m_CurrentEnemies += 1;
+		//...
 	}
 }
