@@ -2,46 +2,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour
+{	
+	// Force to add when moving the player in a given direction
+	[SerializeField] private Vector2 m_Force;
 
-	public Vector3 StartLocation;
-	Rigidbody2D mRigidBody;
-	SpriteRenderer mSpriteRenderer;
-	Vector2 mLeftForce;
-	Vector2 mRightForce;
+	// Starting location of the player
+	[SerializeField] private Vector3 m_StartLocation;
 
-	GameManager gm;
-	// Use this for initialization
-	void Start () {
-		mRigidBody = GetComponent<Rigidbody2D> ();
-		mSpriteRenderer = GetComponent<SpriteRenderer> ();
-		mLeftForce = new Vector2 (-10.0f, 0f);
-		mRightForce = new Vector2 (10.0f, 0f);
-		gm = FindObjectOfType<GameManager> ();
-		ResetPlayer ();
+	// Cached components
+	private Rigidbody2D m_RigidBody;
+	private SpriteRenderer m_SpriteRenderer;
+
+	// Initialize cached components and reset player
+	private void Start()
+	{
+		m_RigidBody = GetComponent<Rigidbody2D>();
+		m_SpriteRenderer = GetComponent<SpriteRenderer>();
+		ResetPlayer();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKey (KeyCode.A)) {
-			mRigidBody.AddForce (mLeftForce);
-			mSpriteRenderer.flipX = true;
-		} else if (Input.GetKey (KeyCode.D)) {
-			mRigidBody.AddForce (mRightForce);
-			mSpriteRenderer.flipX = false;
+
+	// Called once per frame
+	private void Update()
+	{
+		if (Input.GetKey(KeyCode.A))
+		{
+			// Move the player left and update sprite orientation
+			m_RigidBody.AddForce(-m_Force);
+			m_SpriteRenderer.flipX = true;
+		}
+		else if (Input.GetKey(KeyCode.D))
+		{
+			// Move the player right and update sprite orientation
+			m_RigidBody.AddForce(m_Force);
+			m_SpriteRenderer.flipX = false;
 		}
 	}
 
-	void OnCollisionEnter2D(Collision2D c ) {
-		if (c.gameObject.GetComponent<Enemy> ()) {
-			Debug.Log ("You died!");
-			ResetPlayer ();
-			gm.ResetGame ();
-		}
+	// Called when the player's collider overlaps c's collider
+	private void OnCollisionEnter2D(Collision2D c)
+	{
+		// If the other object isn't an enemy, do nothing!
+		if (c.gameObject.GetComponent<Enemy>() == null) return;
+
+		// If it is, the player lost!
+		Debug.Log("You died!");
+		ResetPlayer();
+		GameManager.Instance.ResetGame();
 	}
 
-	void ResetPlayer() {
-		mRigidBody.position = StartLocation;
-		mRigidBody.velocity = new Vector3 (0f, 0f, 0f);
+	// Return the player to its initial state
+	private void ResetPlayer()
+	{
+		m_RigidBody.position = m_StartLocation;
+		m_RigidBody.velocity = new Vector3(0f, 0f, 0f);
 	}
 }
