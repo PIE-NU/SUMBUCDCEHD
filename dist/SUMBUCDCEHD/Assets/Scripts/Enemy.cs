@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
 		 */
 		var xForce = Random.Range(-1f, 1f) * m_MaxSpeed;
 		var yForce = Random.Range(-1f, 1f) * m_MaxSpeed;
-		GetComponent<Rigidbody2D>().AddForce(new Vector2(xForce, yForce));
+		Vector2 force = new Vector2 (xForce, yForce);
+		this.GetComponent<Rigidbody2D>().AddForce(force);
 	}
 }
